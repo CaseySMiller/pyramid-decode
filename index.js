@@ -16,7 +16,7 @@ inquirer
   const decode = (message_file) => {
     // read the contents of the file and decode the message
     fs.readFile(`data/${message_file}`, 'utf8', (err, data) => {
-      const dataArr = data.split('\r\n'); //create an array of the data
+      const dataArr = data.trim().split('\r\n'); //create an array of the data
 
       let decodedMessage = '';
       const pyramid = makePyramid(dataArr);
@@ -57,6 +57,6 @@ inquirer
         level++; //increment level
       }
     }
-
+    
     return pyramid;
   }
