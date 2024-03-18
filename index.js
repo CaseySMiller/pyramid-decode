@@ -16,8 +16,16 @@ inquirer
   const decode = (message_file) => {
     // read the contents of the file and decode the message
     fs.readFile(`data/${message_file}`, 'utf8', (err, data) => {
-      const dataArr = data.split('\r\n'); //creat an array of the data
-      console.log(`The decoded message is: "${makePyramid(dataArr)}"`); //log the decoded message
+      const dataArr = data.split('\r\n'); //create an array of the data
+
+      let decodedMessage = '';
+      const pyramid = makePyramid(dataArr);
+      // add the last word of each level to the decoded message
+      for (let i = 0; i < pyramid.length; i++) {
+        decodedMessage += `${pyramid[i][pyramid[i].length - 1].word} `;
+      }
+      console.log(`The decoded message is: "${decodedMessage.trim()}"`); //log the decoded message
+      return decodedMessage.trim();
     });
   }
 
@@ -50,11 +58,5 @@ inquirer
       }
     }
 
-    // return a string of the last word of each level
-    let decodedMessage = '';
-    for (let i = 0; i < pyramid.length; i++) {
-      decodedMessage += `${pyramid[i][pyramid[i].length - 1].word} `;
-    }
-
-    return decodedMessage.trim();
+    return pyramid;
   }
